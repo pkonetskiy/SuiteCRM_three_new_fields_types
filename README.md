@@ -53,7 +53,7 @@ Before work with forms:
 ## Features
 
 1. The package supports upgrade SuiteCRM versions because it uses standard methods for SuiteCRM only and it uses `custom` directory only.
-2. it is recommended  to use custom modules for fields of `Collection` type.
+2. It is recommended  to use custom modules for fields of `Collection` type.
 3. You can use `Collection` with system modules but you will see the data in `ListView` of system module.
 4. If you delete fields the data and files will not  be deleted from database and filesystem.
 5. You can make some fields of one type on form.
