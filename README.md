@@ -1,6 +1,6 @@
 # The new fields for Studio of SuiteCRM 
 >
-> The project implements three new types of fields that are avalable on `EditView` or `DetailView` forms.
+> The project implements three new types of fields that are available on `EditView` or `DetailView` forms.
 > - `Collection` - The block of fields which can be multiply on forms.
 > - `Collection files` - The multiply load files on forms.
 > - `Dynamicbase` - The one text which can be multiply on forms.
@@ -24,7 +24,7 @@ The package was tested in SuiteCRM versions 7.10.x and 7.11.x . The package can 
 Look at screenshots for details.
 1. Check the messages after installation.
 ![Messages after installation](/screenshots/1.png)
-2. New types of fields are avalable in `Studio`.
+2. New types of fields are avavailable  in `Studio`.
 ![New type of fields](/screenshots/2.png)
 3. `Collection` type use (two screens).
 ![Collection type](/screenshots/3.png)
@@ -53,9 +53,9 @@ Before work with forms:
 ## Features
 
 1. The package supports upgrade SuiteCRM versions because it uses standard methods for SuiteCRM only and it uses `custom` directory only.
-2. it is recomended to use custom modules for fields of `Collection` type.
+2. it is recommended  to use custom modules for fields of `Collection` type.
 3. You can use `Collection` with system modules but you will see the data in `ListView` of system module.
-4. If you delete fields the data and files wlln't be deleted from database and filesystem.
+4. If you delete fields the data and files will not  be deleted from database and filesystem.
 5. You can make some fields of one type on form.
 
 ## Progress
