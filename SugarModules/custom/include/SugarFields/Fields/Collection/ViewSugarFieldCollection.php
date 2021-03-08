@@ -204,8 +204,10 @@ class ViewSugarFieldCollection{
                         
                     }
                     if (isset($this->displayParams['collection_field_list'][$k]['customCode']) && !empty($this->displayParams['collection_field_list'][$k]['customCode']) && $this->viewtype != 'DetailView') {
-                        $customCode = str_replace($realy_field_name, $realy_field_name.'_'.$this->name.'_collection_'.$key_value.'', $customCode);
+                        $customCode = str_replace($realy_field_name, $realy_field_name.'_'.$this->name.'_collection_'.$key_value.'', $this->displayParams['collection_field_list'][$k]['customCode']);
                         $this->displayParams['to_display'][$key_value][$name]['field'] = $customCode;
+                        $this->displayParams['to_display'][$key_value][$name]['field'] .= 
+                            '{literal}<script type="text/javascript">'."document.getElementById('{$collection_field_vardef['name']}').value={$collection_field_vardef['value']};".'</script>{/literal}';
                     } else {
                         if (isset($collection_field_vardef['options']) && !empty($collection_field_vardef['options'])) {
                             $this->displayParams['to_display'][$key_value][$name]['options'] = $GLOBALS['app_list_strings'][$collection_field_vardef['options']];
