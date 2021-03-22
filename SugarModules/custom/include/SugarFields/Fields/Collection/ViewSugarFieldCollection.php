@@ -91,22 +91,16 @@ class ViewSugarFieldCollection{
                 if(file_exists($GLOBALS['beanFiles'][$class])){
                     $this->bean = loadBean($this->module_dir);
 /* support duplicate */
-                    if(isset($_REQUEST['bean_id'])&&!empty($_REQUEST['bean_id'])){
-/* */
-                        $this->bean->retrieve($_REQUEST['bean_id']);
-/* support duplicate */
+                    if(isset($this->duplicateId)&&!empty($this->duplicateId)){
+                        $this->bean->retrieve($this->duplicateId);
                     }else{
-                        if(isset($this->duplicateId)&&!empty($this->duplicateId)){
-                            $this->bean->retrieve($this->duplicateId);
-                        }
+                        $this->bean->retrieve($_REQUEST['bean_id']);
                     }
 /* */
                     if($this->bean->load_relationship($this->vardef['name'])){
 /* support duplicate */
-                        if(isset($_REQUEST['bean_id'])&&!empty($_REQUEST['bean_id'])){
-/* */
+                        if(!isset($this->duplicateId)){
                             $this->check_id();
-/* support duplicate */
                         }          
 /* */
                         $this->retrieve_values();
