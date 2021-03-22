@@ -1,9 +1,11 @@
 # Changed 22.03.2021
 >
 > 3 small changes included.
+>
 > For field type `collection`:
 > - Support `customCode` for each fields (only manually edit `editviewdefs.php`). See format below.
-> - Support `Duplicate` button
+> - Support `Duplicate` button.
+>
 > For field type `collection` and `collection_files`:
 > - Change cache directory for support `Quick repair and rebuild`.
 >
