@@ -343,7 +343,11 @@ class ViewSugarFieldCollection{
     function display(){
 /* use correct cache directory and file extention */
 //        $cacheRowFile = sugar_cached('modules/') . $this->module_dir .  '/collections/'.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl';
-        $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl.php';
+        if (isset($this->duplicateId)&&!empty($this->duplicateId)){
+            $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->viewtype. $this->name .'_'. count($this->count_values) . 'no_id.tpl.php';
+        }else{
+            $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl.php';
+        }
 /* */
         if(!$this->checkTemplate($cacheRowFile)){
             $dir = dirname($cacheRowFile);
