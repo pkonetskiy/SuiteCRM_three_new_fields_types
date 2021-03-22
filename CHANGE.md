@@ -8,6 +8,6 @@
 
 ## Support `customCode`
 
-'customCode' => '<input type=\"text\" size=\"10px\" class=\"sugar_field\" name=\"field_name\" id=\"field_name\" readonly=\"readonly\">',
+'customCode' => '<input type=\\"text\\" size=\\"10px\\" class=\\"sugar_field\\" name=\\"field_name\\" id=\\"field_name\\" readonly=\\"readonly\\">',
 
-!Attention - Using symbol backslash (\) is required for quotes.
+!Attention - Using symbol backslash (\\) is required for quotes.
