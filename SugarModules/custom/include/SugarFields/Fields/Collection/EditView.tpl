@@ -1,7 +1,7 @@
 {*
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0 2021-01-28
+ * BFtool new_Fields_types 1.0.1 2021-03-22
  *  
  ********************************************************************************/
 *}
@@ -41,8 +41,13 @@
      else
          var formnamefound = 'EditView';
 {/literal}
-    postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=' + action_type;
+    var postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=' + action_type;
     {literal}
+/* support duplicate */
+    if(typeof(document.getElementsByName('duplicateId')[0])!=='undefined'){
+        postData = postData + '&duplicateId='+document.getElementsByName('duplicateId')[0].value;
+    }
+/* */
     YAHOO.util.Connect.asyncRequest('POST', 'index.php?action=viewsugarfieldcollection', callback, postData);
 {/literal}
 </script>

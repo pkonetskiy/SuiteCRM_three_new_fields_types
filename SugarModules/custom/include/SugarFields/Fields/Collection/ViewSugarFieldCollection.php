@@ -2,7 +2,7 @@
 if (!defined('sugarEntry') || !sugarEntry) {die('Not A Valid Entry Point');}
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0 2021-01-28
+ * BFtool new_Fields_types 1.0.1 2021-03-22
  *  
  ********************************************************************************/
 
@@ -38,6 +38,11 @@ class ViewSugarFieldCollection{
 	        $this->value_name = array();
 	        $this->ss = new Sugar_Smarty();
 	        $this->extra_var = array();
+/* support duplicate */
+                if(isset($_REQUEST['duplicateId'])){
+                    $this->duplicateId=$_REQUEST['duplicateId'];
+                }
+/* */
     	}
     }
     /**
@@ -85,9 +90,25 @@ class ViewSugarFieldCollection{
                 $class = $GLOBALS['beanList'][$this->module_dir];
                 if(file_exists($GLOBALS['beanFiles'][$class])){
                     $this->bean = loadBean($this->module_dir);
-                    $this->bean->retrieve($_REQUEST['bean_id']);
+/* support duplicate */
+                    if(isset($_REQUEST['bean_id'])&&!empty($_REQUEST['bean_id'])){
+/* */
+                        $this->bean->retrieve($_REQUEST['bean_id']);
+/* support duplicate */
+                    }else{
+                        if(isset($this->duplicateId)&&!empty($this->duplicateId)){
+                            $this->bean->retrieve($this->duplicateId);
+                        }
+                    }
+/* */
                     if($this->bean->load_relationship($this->vardef['name'])){
-                        $this->check_id();
+/* support duplicate */
+                        if(isset($_REQUEST['bean_id'])&&!empty($_REQUEST['bean_id'])){
+/* */
+                            $this->check_id();
+/* support duplicate */
+                        }          
+/* */
                         $this->retrieve_values();
                     }else{
                         die('failed to load the relationship');
@@ -207,7 +228,7 @@ class ViewSugarFieldCollection{
                         $customCode = str_replace($realy_field_name, $realy_field_name.'_'.$this->name.'_collection_'.$key_value.'', $this->displayParams['collection_field_list'][$k]['customCode']);
                         $this->displayParams['to_display'][$key_value][$name]['field'] = $customCode;
                         $this->displayParams['to_display'][$key_value][$name]['field'] .= 
-                            '{literal}<script type="text/javascript">'."document.getElementById('{$collection_field_vardef['name']}').value={$collection_field_vardef['value']};".'</script>{/literal}';
+                            '{literal}<script type="text/javascript">'."document.getElementById('{$collection_field_vardef['name']}').value='{$collection_field_vardef['value']}';".'</script>{/literal}';
                     } else {
                         if (isset($collection_field_vardef['options']) && !empty($collection_field_vardef['options'])) {
                             $this->displayParams['to_display'][$key_value][$name]['options'] = $GLOBALS['app_list_strings'][$collection_field_vardef['options']];
@@ -320,7 +341,10 @@ class ViewSugarFieldCollection{
      * Display the collection field after retrieving the cached row.
      */
     function display(){
-        $cacheRowFile = sugar_cached('modules/') . $this->module_dir .  '/collections/'.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl';
+/* use correct cache directory and file extention */
+//        $cacheRowFile = sugar_cached('modules/') . $this->module_dir .  '/collections/'.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl';
+        $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl.php';
+/* */
         if(!$this->checkTemplate($cacheRowFile)){
             $dir = dirname($cacheRowFile);
             if(!file_exists($dir)) {
