@@ -1,7 +1,7 @@
 {*
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0.1 2021-03-22
+ * BFtool new_Fields_types 1.0.2 2021-04-20
  *  
  ********************************************************************************/
 *}
@@ -15,7 +15,6 @@
     var callback = {
         success:function(o){
            {/literal}
-
             document.getElementById('{{sugarvar key="name"}}_loading_img').style.display="none";
             document.getElementById('{{sugarvar key="name"}}_div').innerHTML = o.responseText;
             SUGAR.util.evalScript(o.responseText);
@@ -33,15 +32,19 @@
     document.getElementById('{{sugarvar key="name"}}_loading_img').style.display="inline";
 {literal}
     if (typeof(document.forms.EditView) == 'undefined')
-        for(var s=0; s < document.forms.length; s++){
+        for(let s=0; s < document.forms.length; s++){
             if (document.forms[s].getAttribute("name").indexOf('QuickCreate') >= 0) {
                 var formnamefound = document.forms[s].getAttribute("name");
             }
+            if (document.forms[s].getAttribute("name").indexOf('EditView') >= 0) {
+                var formnamefound = document.forms[s].getAttribute("name");
+            }
         }
-     else
+     else{
          var formnamefound = 'EditView';
+     }
 {/literal}
-    var postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=' + action_type;
+    var postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=' + action_type + '&form_name=' + formnamefound;
     {literal}
 /* support duplicate */
     if(typeof(document.getElementsByName('duplicateId')[0])!=='undefined'){

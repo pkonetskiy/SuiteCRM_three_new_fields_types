@@ -2,7 +2,7 @@
 if (!defined('sugarEntry') || !sugarEntry) {die('Not A Valid Entry Point');}
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0.1 2021-03-22
+ * BFtool new_Fields_types 1.0.2 2021-04-20
  *  
  ********************************************************************************/
 require_once('custom/include/SugarFields/Fields/Collection/ViewSugarFieldCollection.php');
@@ -156,7 +156,7 @@ class ViewSugarFieldCollection_files extends ViewSugarFieldCollection{
     }
     function display(){
         global $app_list_strings;
-        $cacheRowFile = sugar_cached('modules/') . $this->module_dir .  '/collections_files/'.$this->viewtype. $this->name .'_'. count($this->count_values) .  '.tpl';
+        $cacheRowFile = sugar_cached('modules/') . $this->module_dir .  '/collections_files/'.$this->form_name. $this->name .'_'. count($this->count_values) .  '.tpl';
         $this->ss->assign('dropFiles', $app_list_strings['fieldType_collection_files']['LBL_DROP']);
         $this->ss->assign('listFiles', $app_list_strings['fieldType_collection_files']['LBL_FILE_SIZE']);
         if(!$this->checkTemplate($cacheRowFile)){

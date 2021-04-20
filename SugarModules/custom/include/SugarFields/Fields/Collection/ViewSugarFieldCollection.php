@@ -2,7 +2,7 @@
 if (!defined('sugarEntry') || !sugarEntry) {die('Not A Valid Entry Point');}
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0.1 2021-03-22
+ * BFtool new_Fields_types 1.0.2 2021-04-20
  *  
  ********************************************************************************/
 
@@ -33,6 +33,7 @@ class ViewSugarFieldCollection{
 	        $this->vardef = $this->json->decode(html_entity_decode($_REQUEST['vardef']));
 	        $this->module_dir = $_REQUEST['module_dir'];
 	        $this->action_type = $_REQUEST['action_type'];
+                $this->form_name = $_REQUEST['form_name'];
 	        $this->name = $this->vardef['name'];
                 $this->relay_id = array();
 	        $this->value_name = array();
@@ -151,11 +152,20 @@ class ViewSugarFieldCollection{
                              $id_name = $field_defs[$value_field['name']]['id_name'];
                              $this->relay_id[$value_field['name']][$this->value_name[$k][$value_field['name']]] = $new_bean->$id_name;
                          }
+                         // sort by field
+                         if($value_field['displayParams']['sort']){
+                             $sort[$k]=$this->value_name[$k][$value_field['name']];
+                             $sortField=$value_field['name'];
+                         }
                     }
                     if (!isset($this->value_name[$k]['id'])){
                         $this->value_name[$k]['id'] = $value;
                     }
                     $k++;
+                }
+                // make sort
+                if(isset($sort)){
+                    array_multisort($sort,SORT_ASC,$this->value_name);
                 }
             } else {
                 foreach ($this->displayParams['collection_field_list'] as $key_field=>$value_field) {
@@ -338,9 +348,9 @@ class ViewSugarFieldCollection{
 /* use correct cache directory and file extention */
 //        $cacheRowFile = sugar_cached('modules/') . $this->module_dir .  '/collections/'.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl';
         if (isset($this->duplicateId)&&!empty($this->duplicateId)){
-            $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->viewtype. $this->name .'_'. count($this->count_values) . 'no_id.tpl.php';
+            $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->form_name. $this->name .'_'. count($this->count_values) . 'no_id.tpl.php';
         }else{
-            $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->viewtype. $this->name .'_'. count($this->count_values) . '.tpl.php';
+            $cacheRowFile = sugar_cached('smarty/')  .  '/templates_c/'. $this->module_dir.$this->form_name. $this->name .'_'. count($this->count_values) . '.tpl.php';
         }
 /* */
         if(!$this->checkTemplate($cacheRowFile)){

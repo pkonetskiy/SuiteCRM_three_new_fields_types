@@ -1,7 +1,7 @@
 {*
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0 2021-01-28
+ * BFtool new_Fields_types 1.0.2 2021-04-20
  *  
  ********************************************************************************/
 *}
@@ -31,15 +31,19 @@
     document.getElementById('{{sugarvar key="name"}}_loading_img').style.display="inline";
 //{literal}
     if (typeof(document.forms.EditView) == 'undefined')
-        for(var s=0; s < document.forms.length; s++){
+        for(let s=0; s < document.forms.length; s++){
             if (document.forms[s].getAttribute("name").indexOf('QuickCreate') >= 0) {
                 var formnamefound = document.forms[s].getAttribute("name");
             }
+            if (document.forms[s].getAttribute("name").indexOf('EditView') >= 0) {
+                var formnamefound = document.forms[s].getAttribute("name");
+            }
         }
-     else
+     else{
          var formnamefound = 'EditView';
+     }
 //{/literal}
-    postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=' + action_type;
+    postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=' + action_type + '&form_name=' + formnamefound;
     //{literal}
     YAHOO.util.Connect.asyncRequest('POST', 'index.php?action=viewsugarfieldcollectionfiles', callback, postData);
 //{/literal}

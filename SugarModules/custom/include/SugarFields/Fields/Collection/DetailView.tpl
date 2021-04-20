@@ -1,7 +1,7 @@
 {*
 /*********************************************************************************
  * "Powered by BizForce"
- * BFtool new_Fields_types 1.0 2021-01-28
+ * BFtool new_Fields_types 1.0.2 2021-04-20
  *  
  ********************************************************************************/
 *}
@@ -20,9 +20,18 @@
             alert(SUGAR.language.get('app_strings','LBL_AJAX_FAILURE'));
         }
     }
+    if (typeof(document.forms.DetailView) == 'undefined')
+        for(let s=0; s < document.forms.length; s++){
+            if (document.forms[s].getAttribute("name").indexOf('DetailView') >= 0) {
+                var formnamefound = document.forms[s].getAttribute("name");
+            }
+        }
+     else{
+         var formnamefound = 'DetailView';
+     }
     //{/literal}
     document.getElementById('{{sugarvar key="name"}}_loading_img').style.display="inline";
-    postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms.DetailView.module.value + '&bean_id=' + document.forms.DetailView.record.value + '&action_type=detailview';
+    postData = '&displayParams=' + '{{$displayParamsJSON}}' + '&vardef=' + '{{$vardefJSON}}' + '&module_dir=' + document.forms[formnamefound].module.value + '&bean_id=' + document.forms[formnamefound].record.value + '&action_type=detailview' + '&form_name=' + formnamefound;
     //{literal}
     YAHOO.util.Connect.asyncRequest('POST', 'index.php?action=viewsugarfieldcollection', callback, postData);
 //{/literal}
