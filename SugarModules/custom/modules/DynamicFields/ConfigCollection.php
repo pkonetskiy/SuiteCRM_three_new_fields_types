@@ -7,6 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {die('Not A Valid Entry Point');}
  ********************************************************************************/
 
 class ConfigCollection {
+    const lengthFixedPartFieldName=36;
     public $relationships;
     public $definition;
     public $currentModule;
@@ -21,7 +22,13 @@ class ConfigCollection {
         $this->excludeFields=array('assigned_user_id','assigned_user_name','deleted','created_by_name','modified_by_name');
         $this->currentModule=$currentModule;
         if ($relationship_name===''){
-            $relationship_name=mb_strtolower($this->collectionModule.'_'.$this->currentModule.'_autolink',"UTF-8");
+            $full_link=$this->collectionModule.'_'.$this->currentModule;
+            if(strlen($full_link)>=self::lengthFixedPartFieldName){
+                $full_link_md5=md5($full_link);
+                $full_link=$this->collectionModule.'_'.$full_link_md5.$full_link_md5.'_'.$this->currentModule;
+                $full_link=DBManagerFactory::getInstance()->getValidDBName($full_link, true);
+            }
+            $relationship_name=mb_strtolower($full_link.'_autolink',"UTF-8");
         }
         if(!empty($currentModule)&&!empty($collectionModule)){
             $this->definition=array(
@@ -38,7 +45,7 @@ class ConfigCollection {
 //        $GLOBALS['log']->fatal(get_class()." ". __FUNCTION__." this:\n ".print_r($this,true));
     }
     public function getModuleList(){
-        $moduleExclude=array('Home','Calendar',$this->currentModule);
+        $moduleExclude=array('Home',$this->currentModule);
         global $app_list_strings,$moduleList;
         foreach ($app_list_strings['moduleList'] as $module => $name) {
             if(in_array($module, $moduleList) && !in_array($module, $moduleExclude)){
