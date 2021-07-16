@@ -1,3 +1,6 @@
+# Changed 16.07.2021
+> Fixed big with default value in function `populateFromRow` of object `CustomTemplateCollection`.
+
 # Changed 05.06.2021
 > Fixed bug with field length.
 

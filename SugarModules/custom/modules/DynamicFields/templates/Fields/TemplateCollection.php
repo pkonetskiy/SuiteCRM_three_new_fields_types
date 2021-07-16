@@ -43,7 +43,7 @@ class CustomTemplateCollection extends TemplateField
         }
         return $def;
     }
-    public function populateFromRow($row){
+    public function populateFromRow($row=array()){
         parent::populateFromRow($row);
         $this->relationship_name=$row['relationship_name'];
     }
