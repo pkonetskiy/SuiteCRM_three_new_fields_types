@@ -1,3 +1,6 @@
+# Changed 26.05.2022
+> Fixed big in file `manifest.php`.
+
 # Changed 16.07.2021
 > Fixed big with default value in function `populateFromRow` of object `CustomTemplateCollection`.
 
