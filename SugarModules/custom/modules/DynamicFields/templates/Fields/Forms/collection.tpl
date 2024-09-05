@@ -45,12 +45,12 @@
                 <tr>
                     <td class=''>
                         {if isset($collection.selections)}
-                            <input name=collectionfield[] id=selectedcollectionfield_{$number} value="" hidden="hidden">
+                            <input name="collectionfield[]" id="selectedcollectionfield_{$number}" value="" hidden="hidden">
                         {/if}
-                        {html_options name=collectionfield[] id=collectionfield_$number options=$collection.fields onChange="CustomModuleBuilder.collection.controlField(this);"}
-                        
+                        {html_options name="collectionfield[]" id="collectionfield_$number" options=$collection.fields onChange="CustomModuleBuilder.collection.controlField(this);"}
+                    </td>
                     <td>
-                        {html_options name=collectionsize[] id=collectionsize_$number options=$collection.size onChange="CustomModuleBuilder.collection.controlSize(this);"}
+                        {html_options name="collectionsize[]" id="collectionsize_$number" options=$collection.size onChange="CustomModuleBuilder.collection.controlSize(this);"}
                     </td>
                 </tr>
                 {counter}
