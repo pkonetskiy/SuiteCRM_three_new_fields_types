@@ -112,6 +112,11 @@ class ViewSugarFieldCollection_files extends ViewSugarFieldCollection{
                             $key_file_name = str_replace($this->displayParams['to_display'][$key_value][$name]['vardefName'].'_', '', $name);
                             $this->displayParams['to_display'][$key_value][$name]['realyname'] = $this->displayParams['to_display'][$key_value]['filename_'.$key_file_name]['value'];
                         }
+
+                        if ($this->reloadSmartyCache) {
+                            $this->ss->clearAllCache();
+                        }
+
                         $this->displayParams['to_display'][$key_value][$name]['field'] = $sfh->displaySmarty('displayParams.to_display.'.$key_value, $collection_field_vardef, $this->viewtype, $v['displayParams'], 1);
                     }
                     if ($this->viewtype == 'EditView') {
