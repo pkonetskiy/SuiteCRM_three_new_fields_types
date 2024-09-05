@@ -25,6 +25,7 @@ class ViewSugarFieldCollection{
     var $hideShowHideButton = false;
     var $action_type;
     var $form_name;
+    var $reloadSmartyCache = false;
 
     function __construct($fill_data = true){
     	$this->json = getJSONobj();
@@ -38,6 +39,11 @@ class ViewSugarFieldCollection{
                 $this->relay_id = array();
 	        $this->value_name = array();
 	        $this->ss = new Sugar_Smarty();
+            if (defined('SMARTY::SMARTY_VERSION')) {
+                if ( explode('.',SMARTY::SMARTY_VERSION)[0] > 2 ){
+                    $this->reloadSmartyCache = true;
+                }
+            }
 	        $this->extra_var = array();
 /* support duplicate */
                 if(isset($_REQUEST['duplicateId'])){
@@ -254,6 +260,11 @@ class ViewSugarFieldCollection{
                             }
                         }
                         $this->displayParams['to_display'][$key_value][$name]['value'] = $collection_field_vardef['value'];
+                        
+                        if ($this->reloadSmartyCache) {
+                            $this->ss->clearAllCache();
+                        }
+
                         $this->displayParams['to_display'][$key_value][$name]['field'] = $sfh->displaySmarty('displayParams.to_display.'.$key_value, $collection_field_vardef, $this->viewtype, $v['displayParams'], 1);
                     }
                     if ($this->viewtype == 'EditView') {
