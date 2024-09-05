@@ -1,3 +1,6 @@
+# Changed 05.09.2024
+> Added support SuiteCRM 7.14.x .
+
 # Changed 26.05.2022
 > Fixed big in file `manifest.php`.
 
