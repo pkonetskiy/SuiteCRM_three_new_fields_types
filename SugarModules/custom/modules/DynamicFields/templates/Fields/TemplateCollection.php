@@ -7,6 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {die('Not A Valid Entry Point');}
  ********************************************************************************/
 
 require_once('modules/DynamicFields/templates/Fields/TemplateField.php');
+#[\AllowDynamicProperties]
 class CustomTemplateCollection extends TemplateField
 {
     public $type='collection';
@@ -43,7 +44,7 @@ class CustomTemplateCollection extends TemplateField
         }
         return $def;
     }
-    public function populateFromRow($row=array()){
+    public function populateFromRow($row = []){
         parent::populateFromRow($row);
         $this->relationship_name=$row['relationship_name'];
     }
