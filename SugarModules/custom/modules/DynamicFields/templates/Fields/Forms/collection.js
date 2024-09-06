@@ -62,6 +62,7 @@ jQuery(document).ready(function($){
                 let linkid=$(current).val();
                 ModuleBuilder.getContent('module=ModuleBuilder&action=modulefield&view_package=' + ModuleBuilder.MBpackage +
                   '&view_module=' + ModuleBuilder.module + '&field=' + name + '&type=collection&collectionModule='+linkid);
+                  SUGAR.ajaxUI.showLoadingPanel();
             },
             fixFieldName: function(){
                 $('#field_name_id').val($('#'+Collection.fieldName).val());

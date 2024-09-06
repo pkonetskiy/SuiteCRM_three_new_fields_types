@@ -83,6 +83,7 @@
         {literal}jQuery(document).ready(function($){{/literal}
             Collection=JSON.parse('{$jsonCollection}');
             CustomModuleBuilder.collection.init('{$numberFields}');
+            SUGAR.ajaxUI.hideLoadingPanel();
         {literal}});{/literal}
     </script>
 {/if}
