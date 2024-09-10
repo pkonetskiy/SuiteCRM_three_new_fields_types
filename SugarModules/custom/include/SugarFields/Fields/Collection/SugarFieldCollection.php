@@ -79,7 +79,7 @@ class SugarFieldCollection extends SugarFieldBase {
         }else{
             $link_field = $params[$field];
         }
-        if(!empty($link_field) && ($bean->field_defs[$link_field]['type'] == 'link')){
+        if(!empty($link_field) && ($bean->field_defs[$link_field]['type'] == 'link' && $params['action'] != "ConvertLead")){
             $bean->load_relationship($link_field);
             $actual_field_list = Array();
             foreach($params as $name_field=>$value_field){
